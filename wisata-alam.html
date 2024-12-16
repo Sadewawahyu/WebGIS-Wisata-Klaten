@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wisata Alam - Explore Klaten</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #2d6a4f;
+        color: #fff;
+        overflow-x: hidden;
+      }
+
+      header {
+        background: #2d6a4f;
+        color: #fff;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        width: calc(100% - 40px);
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+
+      header .logo {
+        font-size: 24px;
+        font-weight: 600;
+        transition: transform 0.3s ease;
+      }
+
+      header .logo:hover {
+        transform: scale(1.05);
+      }
+
+      header nav {
+        position: relative;
+        margin-right: 20px;
+      }
+
+      header nav ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        margin: 0;
+        padding: 0;
+      }
+
+      header nav ul li {
+        position: relative;
+      }
+
+      header nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 400;
+        padding: 10px;
+        transition: all 0.3s ease;
+        display: block;
+      }
+
+      header nav ul li a:hover {
+        color: #b7e4c7;
+        transform: translateY(-2px);
+      }
+
+      /* Updated dropdown styles */
+      header nav ul li .dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #2d6a4f;
+        border-radius: 8px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        min-width: 200px; /* Increased width */
+        z-index: 1001;
+        padding: 8px 0; /* Added padding top and bottom */
+      }
+
+      header nav ul li .dropdown a {
+        display: block;
+        padding: 12px 20px; /* Increased padding */
+        color: #fff;
+        white-space: nowrap;
+        transition: all 0.3s ease;
+        font-size: 15px; /* Slightly larger font */
+        border-left: 3px solid transparent; /* For hover effect */
+      }
+
+      header nav ul li .dropdown a:hover {
+        background-color: #3d8063; /* Slightly lighter than header */
+        color: #fff;
+        border-left: 3px solid #b7e4c7; /* Accent color on hover */
+        transform: none; /* Remove Y transform on hover */
+      }
+
+      header nav ul li:hover .dropdown {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      /* Animation for dropdown */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive styles */
+      @media (max-width: 768px) {
+        header {
+          width: calc(100% - 20px);
+          padding: 15px 10px;
+        }
+
+        header nav ul {
+          display: none;
+          flex-direction: column;
+          background: #2d6a4f;
+          position: absolute;
+          top: 100%;
+          right: 10px;
+          width: 250px; /* Increased width for mobile */
+          padding: 10px;
+          border-radius: 8px;
+          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        header.nav-active ul {
+          display: flex;
+          animation: slideIn 0.3s ease;
+        }
+
+        header nav ul li .dropdown {
+          position: static;
+          display: none;
+          width: 100%;
+          margin-top: 5px;
+          box-shadow: none;
+          background-color: #3d8063;
+          border-radius: 4px;
+        }
+
+        header nav ul li:hover .dropdown {
+          display: block;
+        }
+
+        header nav ul li .dropdown a {
+          padding: 12px 25px; /* Increased padding for mobile */
+        }
+
+        header .menu-toggle {
+          display: block;
+          cursor: pointer;
+          font-size: 24px;
+          transition: transform 0.3s ease;
+        }
+
+        header .menu-toggle:hover {
+          transform: scale(1.1);
+        }
+      }
+
+      /* Animation for mobile menu */
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* Main Section Wrapper */
+      .main-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 50px 20px;
+        width: 85%;
+        margin: 0 auto;
+        background-image: url("https://pin.it/3k5lGLNn9");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Container Split */
+      .container {
+        display: flex;
+        width: 100%;
+        max-width: 1200px;
+        margin: 20px auto;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Container untuk gambar dan teks */
+.left-side {
+    position: relative;
+    width: 50%;
+    height: 500px; /* Tinggi area */
+    overflow: hidden; /* Menghindari gambar keluar dari area */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Gambar sebagai background */
+.left-side .background-image {
+    position: absolute; /* Posisi absolut agar gambar menjadi background */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Pastikan gambar menutupi area dengan proporsi */
+    z-index: 0; /* Di belakang teks */
+}
+
+/* Styling untuk teks */
+.left-side h1 {
+    font-size: 3rem; /* Ukuran teks utama */
+    font-weight: 700;
+    color: white; /* Warna teks */
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Bayangan teks */
+    z-index: 1; /* Memastikan teks di atas gambar */
+    position: relative;
+}
+
+.left-side h1 span {
+    display: block;
+    font-size: 1.5rem; /* Ukuran untuk teks "SAVE OUR" */
+    letter-spacing: 2px; /* Jarak antar huruf */
+}
+
+
+      .right-side {
+        width: 50%;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .right-side h2 {
+        font-size: 50px;
+        font-weight: 800;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        color: #0d442b;
+      }
+
+      /* Teks kanan*/
+      .right-side {
+        position: relative; /* Parent untuk positioning absolute */
+        width: 50%;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: justify;
+        line-height: 1.4;
+        background: #2d6a4f;
+      }
+
+      /* Social Media Icons */
+      .social-icons {
+        position: absolute;
+        bottom: 30px; /* Jarak dari bawah */
+        right: 30px; /* Jarak dari kanan */
+      }
+
+      .social-icons a {
+        color: #fff;
+        margin: 0 20px;
+        font-size: 20px;
+        transition: color 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        color: #1b4332; /* Warna saat hover */
+      }
+
+      .btn-location {
+        display: inline-block;
+        margin-top: 20px;
+        background: linear-gradient(45deg, #3d8063, #2d6a4f);
+        padding: 15px 25px;
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: background 0.3s ease;
+      }
+
+      .btn-location:hover {
+        background: linear-gradient(45deg, #1b4332, #2d6a4f);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header>
+      <div class="logo">Explore Klaten</div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li>
+            <a href="#">Wisata</a>
+            <div class="dropdown">
+              <a href="wisata-alam.html">Wisata Alam</a>
+              <a href="wisata-budaya.html">Wisata Budaya</a>
+              <a href="wisata-kuliner.html">Wisata Kuliner</a>
+            </div>
+          </li>
+          <li><a href="ulasan.php">Ulasan Wisata</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/ponggok.jpg" alt="Bakso Mercon" class="background-image" />
+            <h1>
+                
+            </h1>
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Umbul Ponggok</h2>
+          <p>
+            Umbul Ponggok adalah sebuah destinasi wisata air populer yang
+            terletak di Desa Ponggok, Klaten, Jawa Tengah. Tempat ini merupakan
+            mata air alami yang jernih, dihiasi oleh pemandangan bawah air yang
+            indah, seperti bebatuan, ikan berwarna-warni, dan dekorasi unik
+            untuk fotografi bawah air. Umbul Ponggok cocok untuk aktivitas
+            snorkeling, menyelam, dan fotografi, sehingga menjadi daya tarik
+            bagi wisatawan yang mencari pengalaman unik dan menyegarkan.
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/manten .jpg" alt="Bakso Mercon" class="background-image" />
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Umbul Manten</h2>
+          <p>
+            Umbul Manten adalah sebuah kolam mata air alami yang terletak di
+            Desa Sidowayah, Kecamatan Polanharjo, Kabupaten Klaten, Jawa Tengah.
+            Tempat ini dikenal karena kejernihan airnya yang memancarkan warna
+            biru kehijauan, dikelilingi pepohonan rindang yang menciptakan
+            suasana sejuk dan tenang. Nama Umbul Manten" berasal dari cerita
+            rakyat setempat yang mengaitkannya dengan kisah sepasang pengantin.
+            Umbul ini sering menjadi destinasi wisata untuk berenang,
+            snorkeling, atau sekadar menikmati keindahan alam. Kombinasi
+            keindahan dan suasana damainya menjadikan Umbul Manten populer di
+            kalangan wisatawan lokal maupun luar daerah.
+            </p>
+            <a href="index.html#map#marker" class="btn-location">GO TO LOCATION</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/jombor .jpg" alt="Bakso Mercon" class="background-image" />
+            <h1>
+                
+            </h1>
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Rawa Jombor</h2>
+          <p>
+            Rawa Jombor adalah sebuah danau alami yang terletak di Kecamatan
+            Bayat, Kabupaten Klaten, Jawa Tengah. Rawa ini berfungsi sebagai
+            kawasan resapan air, tempat budidaya perikanan keramba, dan
+            destinasi wisata lokal. Dikelilingi oleh perbukitan, Rawa Jombor
+            menawarkan pemandangan yang indah serta suasana yang tenang,
+            menjadikannya tempat favorit untuk memancing, bersantai, atau
+            menikmati kuliner khas di warung apung yang tersedia. Selain nilai
+            ekologisnya, rawa ini juga memiliki peran penting dalam mendukung
+            kehidupan masyarakat sekitar.
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/tjokro.jpg" alt="Bakso Mercon" class="background-image" />
+            <h1>
+                
+            </h1>
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Umbul Tjokro</h2>
+          <p>
+            Umbul Tjokro adalah sebuah sumber mata air alami yang terletak di
+            Desa Tjokro, Kabupaten Tegal, Jawa Tengah. Umbul ini dikenal dengan
+            airnya yang jernih dan segar, serta dikelilingi oleh pemandangan
+            alam yang indah. Selain digunakan untuk keperluan sehari-hari oleh
+            masyarakat setempat, Umbul Tjokro juga menjadi salah satu destinasi
+            wisata yang menarik, terutama bagi pengunjung yang ingin menikmati
+            suasana alam yang tenang dan sejuk. Selain itu, di sekitar umbul
+            terdapat fasilitas untuk berenang dan bersantai.
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/jolotundo.jpg" alt="Bakso Mercon" class="background-image" />
+            <h1>
+                
+            </h1>
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Umbul Jolotundo</h2>
+          <p>
+            Umbul Jolotundo adalah sebuah situs mata air alami yang terletak di
+            Desa Turi, Kecamatan Trawas, Kabupaten Mojokerto, Jawa Timur. Tempat
+            ini dikenal karena sumber airnya yang jernih dan memiliki nilai
+            sejarah, serta sering dikaitkan dengan peninggalan kerajaan
+            Majapahit. Umbul Jolotundo memiliki kolam yang dikelilingi oleh alam
+            yang indah dan asri, menjadikannya sebagai destinasi wisata yang
+            populer bagi para wisatawan yang mencari ketenangan dan keindahan
+            alam. Air yang mengalir di sini dipercaya memiliki khasiat tertentu,
+            dan situs ini sering dikunjungi untuk keperluan wisata maupun
+            spiritual.
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/kalitalang.jpg" alt="Bakso Mercon" class="background-image" />
+            <h1>
+                
+            </h1>
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Kali Talang</h2>
+          <p>
+            Kali Talang adalah salah satu sungai yang terletak di wilayah
+            Indonesia, khususnya di sekitar daerah Yogyakarta. Sungai ini
+            dikenal dengan aliran airnya yang jernih dan sering digunakan
+            sebagai salah satu sumber air bagi warga setempat. Kali Talang juga
+            memiliki daya tarik alam yang menarik, terutama bagi para pencinta
+            alam dan penggemar fotografi, berkat pemandangannya yang indah dan
+            suasana yang tenang. Sungai ini juga menjadi tempat yang populer
+            untuk kegiatan rekreasi ringan, seperti berjalan-jalan di sekitar
+            bantaran sungai atau menikmati suasana alam.
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/deles.jpg" alt="Bakso Mercon" class="background-image" />
+            <h1>
+                
+            </h1>
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Deles Indah</h2>
+          <p>
+            Deles Indah adalah sebuah kawasan wisata yang terletak di daerah
+            Selo, Kabupaten Boyolali, Jawa Tengah, Indonesia. Tempat ini
+            terkenal dengan pemandangan alam yang indah, terutama latar belakang
+            Gunung Merapi dan Gunung Merbabu yang memukau. Deles Indah
+            menawarkan berbagai aktivitas outdoor seperti trekking, camping, dan
+            menikmati keindahan alam. Lokasi ini juga sering menjadi tujuan
+            wisata bagi mereka yang ingin menikmati suasana sejuk pegunungan
+            serta menikmati sunset dan sunrise yang menakjubkan..
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/bukitcinta.jpg" alt="Bakso Mercon" class="background-image" />
+            <h1>
+                
+            </h1>
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Bukit Cinta</h2>
+          <p>
+            Bukit Cinta adalah sebuah tempat wisata alam yang terletak di daerah
+            perbukitan dengan pemandangan indah, biasanya dikelilingi oleh hutan
+            hijau dan udara yang sejuk. Tempat ini sering dijadikan sebagai
+            tujuan wisata untuk menikmati keindahan alam, berfoto, atau hanya
+            sekadar bersantai sambil menikmati pemandangan. Nama "Bukit Cinta"
+            mengandung makna romantis, yang menjadikannya tempat yang populer
+            bagi pasangan atau pengunjung yang mencari kedamaian dan keindahan
+            alam. Lokasi ini cocok untuk trekking ringan, piknik, atau menikmati
+            matahari terbenam.
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

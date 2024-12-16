@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wisata Alam - Explore Klaten</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #2d6a4f;
+        color: #fff;
+        overflow-x: hidden;
+      }
+
+      header {
+        background: #2d6a4f;
+        color: #fff;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        width: calc(100% - 40px);
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+
+      header .logo {
+        font-size: 24px;
+        font-weight: 600;
+        transition: transform 0.3s ease;
+      }
+
+      header .logo:hover {
+        transform: scale(1.05);
+      }
+
+      header nav {
+        position: relative;
+        margin-right: 20px;
+      }
+
+      header nav ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        margin: 0;
+        padding: 0;
+      }
+
+      header nav ul li {
+        position: relative;
+      }
+
+      header nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 400;
+        padding: 10px;
+        transition: all 0.3s ease;
+        display: block;
+      }
+
+      header nav ul li a:hover {
+        color: #b7e4c7;
+        transform: translateY(-2px);
+      }
+
+      /* Updated dropdown styles */
+      header nav ul li .dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #2d6a4f;
+        border-radius: 8px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        min-width: 200px; /* Increased width */
+        z-index: 1001;
+        padding: 8px 0; /* Added padding top and bottom */
+      }
+
+      header nav ul li .dropdown a {
+        display: block;
+        padding: 12px 20px; /* Increased padding */
+        color: #fff;
+        white-space: nowrap;
+        transition: all 0.3s ease;
+        font-size: 15px; /* Slightly larger font */
+        border-left: 3px solid transparent; /* For hover effect */
+      }
+
+      header nav ul li .dropdown a:hover {
+        background-color: #3d8063; /* Slightly lighter than header */
+        color: #fff;
+        border-left: 3px solid #b7e4c7; /* Accent color on hover */
+        transform: none; /* Remove Y transform on hover */
+      }
+
+      header nav ul li:hover .dropdown {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      /* Animation for dropdown */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive styles */
+      @media (max-width: 768px) {
+        header {
+          width: calc(100% - 20px);
+          padding: 15px 10px;
+        }
+
+        header nav ul {
+          display: none;
+          flex-direction: column;
+          background: #2d6a4f;
+          position: absolute;
+          top: 100%;
+          right: 10px;
+          width: 250px; /* Increased width for mobile */
+          padding: 10px;
+          border-radius: 8px;
+          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        header.nav-active ul {
+          display: flex;
+          animation: slideIn 0.3s ease;
+        }
+
+        header nav ul li .dropdown {
+          position: static;
+          display: none;
+          width: 100%;
+          margin-top: 5px;
+          box-shadow: none;
+          background-color: #3d8063;
+          border-radius: 4px;
+        }
+
+        header nav ul li:hover .dropdown {
+          display: block;
+        }
+
+        header nav ul li .dropdown a {
+          padding: 12px 25px; /* Increased padding for mobile */
+        }
+
+        header .menu-toggle {
+          display: block;
+          cursor: pointer;
+          font-size: 24px;
+          transition: transform 0.3s ease;
+        }
+
+        header .menu-toggle:hover {
+          transform: scale(1.1);
+        }
+      }
+
+      /* Animation for mobile menu */
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* Main Section Wrapper */
+      .main-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 50px 20px;
+        width: 85%;
+        margin: 0 auto;
+        background-image: url("https://pin.it/3k5lGLNn9");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Container Split */
+      .container {
+        display: flex;
+        width: 100%;
+        max-width: 1200px;
+        margin: 20px auto;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Container untuk gambar dan teks */
+      .left-side {
+        position: relative;
+        width: 50%;
+        height: 500px; /* Tinggi area */
+        overflow: hidden; /* Menghindari gambar keluar dari area */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      /* Gambar sebagai background */
+      .left-side .background-image {
+        position: absolute; /* Posisi absolut agar gambar menjadi background */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Pastikan gambar menutupi area dengan proporsi */
+        z-index: 0; /* Di belakang teks */
+      }
+
+      /* Styling untuk teks */
+      .left-side h1 {
+        font-size: 3rem; /* Ukuran teks utama */
+        font-weight: 700;
+        color: white; /* Warna teks */
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Bayangan teks */
+        z-index: 1; /* Memastikan teks di atas gambar */
+        position: relative;
+      }
+
+      .left-side h1 span {
+        display: block;
+        font-size: 1.5rem; /* Ukuran untuk teks "SAVE OUR" */
+        letter-spacing: 2px; /* Jarak antar huruf */
+      }
+
+      .right-side {
+        width: 50%;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .right-side h2 {
+        font-size: 50px;
+        font-weight: 800;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        color: #0d442b;
+      }
+
+      /* Teks kanan*/
+      .right-side {
+        position: relative; /* Parent untuk positioning absolute */
+        width: 50%;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: justify;
+        line-height: 1.4;
+        background: #2d6a4f;
+      }
+
+      /* Social Media Icons */
+      .social-icons {
+        position: absolute;
+        bottom: 30px; /* Jarak dari bawah */
+        right: 30px; /* Jarak dari kanan */
+      }
+
+      .social-icons a {
+        color: #fff;
+        margin: 0 20px;
+        font-size: 20px;
+        transition: color 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        color: #1b4332; /* Warna saat hover */
+      }
+
+      .btn-location {
+        display: inline-block;
+        margin-top: 20px;
+        background: linear-gradient(45deg, #3d8063, #2d6a4f);
+        padding: 15px 25px;
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: background 0.3s ease;
+      }
+
+      .btn-location:hover {
+        background: linear-gradient(45deg, #1b4332, #2d6a4f);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header>
+      <div class="logo">Explore Klaten</div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li>
+            <a href="#">Wisata</a>
+            <div class="dropdown">
+              <a href="wisata-alam.html">Wisata Alam</a>
+              <a href="wisata-budaya.html">Wisata Budaya</a>
+              <a href="wisata-kuliner.html">Wisata Kuliner</a>
+            </div>
+          </li>
+          <li><a href="ulasan.php">Ulasan Wisata</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/prambanan.jpg" alt="Bakso Mercon" class="background-image" />
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Candi Prambanan</h2>
+          <p>
+            Candi Prambanan adalah kompleks candi Hindu terbesar di Indonesia
+            yang terletak di daerah Yogyakarta, tepatnya di Kabupaten Sleman,
+            Provinsi Daerah Istimewa Yogyakarta. Candi ini dibangun pada abad
+            ke-9 oleh Raja Rakai Pikatan dari Dinasti Mataram Hindu. Candi
+            Prambanan terdiri dari sejumlah candi utama yang didedikasikan untuk
+            Trimurti, yaitu dewa Brahma (pencipta), Wisnu (pemelihara), dan Siwa
+            (perusak). Candi ini terkenal dengan arsitektur megahnya yang
+            memiliki ukiran dan relief yang indah, serta cerita-cerita epik dari
+            kitab Mahabharata dan Ramayana. Prambanan telah diakui sebagai Situs
+            Warisan Dunia oleh UNESCO sejak 1991.
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/candi plaosan.jpg" alt="Bakso Mercon" class="background-image" />
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Candi Plaosan</h2>
+          <p>
+            Candi Plaosan adalah kompleks candi Buddha yang terletak di desa
+            Plaosan, Kecamatan Prambanan, Kabupaten Klaten, Jawa Tengah. Candi
+            ini terdiri dari dua kelompok utama, yaitu Candi Plaosan Lor (utara)
+            dan Candi Plaosan Kidul (selatan). Candi ini diperkirakan dibangun
+            pada abad ke-9 oleh Rakai Pikatan, seorang raja dari Dinasti Mataram
+            Kuno. Candi Plaosan terkenal dengan arsitektur yang indah, dihiasi
+            dengan relief-relief yang menggambarkan kehidupan sehari-hari dan
+            ajaran-ajaran Buddha. Keunikan dari Candi Plaosan adalah adanya
+            gabungan unsur Hindu dan Buddha dalam bangunannya, mencerminkan
+            toleransi antar agama pada masa itu.
+            <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+            <!-- Social Media Icons -->
+          </p>
+
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/sojiwan.jpg" alt="Bakso Mercon" class="background-image" />
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Candi Sojiwan</h2>
+          <p>
+            Candi Sojiwan adalah sebuah candi Buddha yang terletak di Desa
+            Kebon, Kecamatan Prambanan, Kabupaten Klaten, Jawa Tengah. Candi ini
+            diperkirakan dibangun pada abad ke-8 atau 9 Masehi, pada masa
+            kejayaan Kerajaan Mataram Kuno. Candi Sojiwan memiliki arsitektur
+            yang indah dengan ciri khas bangunan candi Buddha, yang menghadap ke
+            arah timur. Meskipun sebagian besar candi ini rusak akibat gempa dan
+            pencurian, struktur dan relief-relief yang masih ada menggambarkan
+            ajaran Buddha, seperti cerita-cerita dari Jataka dan kehidupan Sang
+            Buddha. Candi ini kini menjadi salah satu situs penting untuk wisata
+            sejarah dan kebudayaan di Jawa Tengah.
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/pandanaran.jpg" alt="Bakso Mercon" class="background-image" />
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Makam Sunan Pandanaran</h2>
+          <p>
+            Makam Sunan Pandanaran terletak di Desa Pandanaran, Kecamatan
+            Ungaran, Kabupaten Semarang, Jawa Tengah. Sunan Pandanaran adalah
+            salah satu Wali Songo yang terkenal dalam penyebaran Islam di Jawa.
+            Makam ini menjadi tempat ziarah bagi banyak orang, terutama yang
+            ingin mendoakan atau mengharapkan berkah. Di sekitar makam, terdapat
+            beberapa fasilitas yang mendukung kegiatan ziarah, seperti masjid
+            dan tempat wudu. Makam ini juga memiliki nilai historis yang tinggi,
+            karena Sunan Pandanaran dianggap sebagai salah satu tokoh yang
+            berperan penting dalam mengembangkan ajaran Islam di daerah
+            tersebut.
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/batik.jpg" alt="Bakso Mercon" class="background-image" />
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Kampung Batik Jarum</h2>
+          <p>
+            Kampung Batik Jarum adalah sebuah kawasan di kota Pekalongan, Jawa
+            Tengah, yang dikenal sebagai pusat pembuatan batik dengan ciri khas
+            jarum. Di kampung ini, para pengrajin batik memanfaatkan teknik
+            tulis yang menggunakan alat jarum untuk menciptakan motif batik yang
+            halus dan detail. Kampung Batik Jarum juga menjadi tempat wisata
+            budaya, di mana pengunjung bisa melihat langsung proses pembuatan
+            batik, membeli produk batik, serta belajar tentang sejarah dan
+            filosofi di balik motif-motif batik yang dihasilkan. Selain itu,
+            kampung ini memiliki suasana yang kental dengan nuansa seni
+            tradisional Indonesia.
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/merak.jpg" alt="Bakso Mercon" class="background-image" />
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Candi Merak</h2>
+          <p>
+            Candi Merak adalah situs sejarah yang terletak di Desa Merak,
+            Kecamatan Merakurak, Kabupaten Tuban, Jawa Timur. Candi ini
+            merupakan peninggalan agama Hindu yang diperkirakan dibangun pada
+            abad ke-14, pada masa Majapahit. Candi Merak dikenal dengan
+            bentuknya yang sederhana, terdiri dari struktur utama berupa
+            bangunan batu yang sebagian besar masih utuh. Meskipun tidak sebesar
+            candi-candi lainnya, Candi Merak memiliki nilai arkeologis yang
+            tinggi karena kemunculannya yang erat kaitannya dengan perkembangan
+            agama Hindu di Indonesia pada masa tersebut. Candi ini juga
+            menunjukkan pengaruh kebudayaan Majapahit di Jawa Timur.
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/lumbung.jpg" alt="Bakso Mercon" class="background-image" />
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Candi Lumbung</h2>
+          <p>
+            Candi Lumbung adalah sebuah candi yang terletak di Kompleks Candi
+            Prambanan, tepatnya di daerah Klaten, Jawa Tengah. Candi ini
+            merupakan salah satu candi Hindu yang diperkirakan dibangun pada
+            abad ke-9 Masehi pada masa pemerintahan Raja Rakai Pikatan. Candi
+            Lumbung dikenal dengan struktur arsitekturnya yang unik, dengan
+            bentuk yang lebih sederhana dibandingkan dengan candi-candi utama di
+            Prambanan. Candi ini memiliki ruangan yang besar dengan banyak
+            lubang kecil di dindingnya, yang memberi kesan seperti lumbung atau
+            gudang, yang menjadi asal nama candi ini. Candi Lumbung diperkirakan
+            digunakan sebagai tempat ibadah dan simbol keharmonisan antara
+            manusia dengan alam.
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/merak.jpg" alt="Bakso Mercon" class="background-image" />
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Candi Merak</h2>
+          <p>
+            Candi Merak adalah situs sejarah yang terletak di Desa Merak,
+            Kecamatan Merakurak, Kabupaten Tuban, Jawa Timur. Candi ini
+            merupakan peninggalan agama Hindu yang diperkirakan dibangun pada
+            abad ke-14, pada masa Majapahit. Candi Merak dikenal dengan
+            bentuknya yang sederhana, terdiri dari struktur utama berupa
+            bangunan batu yang sebagian besar masih utuh. Meskipun tidak sebesar
+            candi-candi lainnya, Candi Merak memiliki nilai arkeologis yang
+            tinggi karena kemunculannya yang erat kaitannya dengan perkembangan
+            agama Hindu di Indonesia pada masa tersebut. Candi ini juga
+            menunjukkan pengaruh kebudayaan Majapahit di Jawa Timur.
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/melikan.jpg" alt="Bakso Mercon" class="background-image" />
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Kampung Seni Melikan</h2>
+          <p>
+            Kampung Seni Melikan adalah sebuah kawasan budaya yang terletak di
+            Desa Melikan, Kabupaten Klaten, Jawa Tengah. Kampung ini dikenal
+            sebagai pusat seni dan kerajinan tradisional, khususnya dalam
+            pembuatan gerabah. Penduduknya memanfaatkan teknik turun-temurun
+            untuk menghasilkan karya seni dari tanah liat yang unik dan bernilai
+            seni tinggi. Selain itu, Kampung Seni Melikan sering menjadi tujuan
+            wisata edukasi, menawarkan pengalaman langsung bagi pengunjung untuk
+            belajar membuat gerabah serta menikmati suasana desa yang asri dan
+            kaya akan tradisi lokal.
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section">
+      <div class="container">
+        <!-- Left Side -->
+        <div class="left-side">
+            <img src="foto/bubrah.jpg" alt="Bakso Mercon" class="background-image" />
+        </div>
+
+        <!-- Right Side -->
+        <div class="right-side">
+          <h2>Candi Bubrah</h2>
+          <p>
+            Candi Bubrah adalah sebuah candi peninggalan Kerajaan Medang yang
+            terletak di kompleks Kawasan Candi Prambanan, Jawa Tengah. Candi ini
+            terbuat dari batu andesit dan berukuran relatif kecil. Nama "Bubrah"
+            yang berarti "rusak" dalam bahasa Jawa mencerminkan kondisi candi
+            yang telah runtuh dan hanya tersisa reruntuhannya. Berdasarkan ciri
+            arsitektur dan relief, Candi Bubrah diyakini sebagai candi bercorak
+            Buddha, ditandai dengan keberadaan stupa di atasnya. Meski kecil,
+            candi ini merupakan bagian penting dari sejarah dan peradaban masa
+            lampau di Jawa. Kini, Candi Bubrah menjadi salah satu daya tarik
+            wisata sejarah dan arkeologi di kawasan Prambanan.
+          </p>
+          <a href="index.html#map" class="btn-location">GO TO LOCATION</a>
+
+          
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
